@@ -1,0 +1,10 @@
+---
+- hosts: all
+  roles:
+    - ansible-openwrt
+
+  tasks:
+
+  - name: Reboot node
+    ansible.builtin.command:
+      reboot

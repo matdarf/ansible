@@ -1,0 +1,2 @@
+key_guest2: "{{ vault_key_guest2 }}"
+key_guest5: "{{ vault_key_guest5 }}"

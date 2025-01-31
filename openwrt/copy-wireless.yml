@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - copy_file
+  vars:
+    service: wireless

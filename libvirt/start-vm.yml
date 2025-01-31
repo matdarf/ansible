@@ -1,0 +1,9 @@
+---
+- hosts: all
+
+  tasks:
+
+  - name: Start VM
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      state: running

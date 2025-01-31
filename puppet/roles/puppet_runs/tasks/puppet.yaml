@@ -1,0 +1,14 @@
+- name: Do Puppet runs
+  ansible.builtin.command: '/opt/puppetlabs/bin/puppet agent --onetime --no-daemonize --no-usecacheonfailure --detailed-exitcode'
+  register: puppet_runs
+  changed_when: "puppet_runs.rc == 2 or puppet_runs.rc == 4 or puppet_runs.rc == 6"
+  async: 99999
+  poll: 5
+  until: puppet_runs.rc == 0 or puppet_runs.rc == 1
+  retries: 10
+  delay: 10
+
+- name: Bail out on Puppet agent failures
+  ansible.builtin.fail:
+    msg: "The last Puppet run failed with: {{ puppet_runs.rc }}"
+  when: puppet_runs.rc == 1

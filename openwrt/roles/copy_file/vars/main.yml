@@ -1,0 +1,75 @@
+---
+# vars file for roles/copy_file
+#
+
+reboot_node: false
+
+dest_dir: /etc/config
+
+wireless_extra_opts:
+  wifi_device:
+    radio0:
+      wifi01: |-
+        option ieee80211r '1'
+      wifi02: |-
+        option ieee80211r '1'
+        option disabled '1'
+      wifi03: |-
+        option ieee80211r '1'
+        option disabled '1'
+    radio1:
+      wifi01: |-
+        option txpower 'auto'
+      wifi02: |-
+        option txpower 'auto'
+        option disabled '1'
+      wifi03: |-
+        option txpower 'auto'
+        option disabled '1'
+  wifi_iface:
+    guest2:
+      wifi01: |-
+        option disabled '0'
+      wifi02: |-
+        option disabled '0'
+      wifi03: |-
+        option disabled '0'
+    guest5:
+      wifi01: |-
+        option disabled '0'
+      wifi02: |-
+        option disabled '0'
+      wifi03: |-
+        option disabled '0'
+
+files:
+  wifi01:
+    network:
+      src: network.vlan
+      dest: "{{ dest_dir }}/network"
+    system:
+      src: system.j2
+      dest: "{{ dest_dir }}/system"
+    wireless:
+      src: wireless.j2
+      dest: "{{ dest_dir }}/wireless"
+  wifi02:
+    network:
+      src: network.wap
+      dest: "{{ dest_dir }}/network"
+    system:
+      src: system.j2
+      dest: "{{ dest_dir }}/system"
+    wireless:
+      src: wireless.j2
+      dest: "{{ dest_dir }}/wireless"
+  wifi03:
+    network:
+      src: network.wap
+      dest: "{{ dest_dir }}/network"
+    system:
+      src: system.j2
+      dest: "{{ dest_dir }}/system"
+    wireless:
+      src: wireless.j2
+      dest: "{{ dest_dir }}/wireless"

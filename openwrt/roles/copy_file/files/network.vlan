@@ -1,0 +1,35 @@
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'lan1'
+	list ports 'lan2'
+	list ports 'lan3'
+	list ports 'lan4'
+	list ports 'wan'
+
+config bridge-vlan
+	option device 'br-lan'
+	option vlan '230'
+	list ports 'lan1'
+	list ports 'lan2'
+	list ports 'wan:t'
+
+config interface 'mult'
+	option device 'br-lan.230'
+	option proto 'manual'
+
+config bridge-vlan
+	option device 'br-lan'
+	option vlan '231'
+	list ports 'wan:t'
+
+config interface 'wifi'
+	option device 'br-lan.231'
+	option proto 'dhcp'

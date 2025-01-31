@@ -1,0 +1,10 @@
+---
+- hosts: all
+
+  tasks:
+
+  - name: StartVM
+    community.libvirt.virt:
+      - name: "{{ vm_name }}"
+      state: shutdown
+      uri: 'qemu+ssh://libvirt_host/system'

@@ -1,0 +1,28 @@
+---
+# tasks files for roles/copy_file
+
+- name: Print service being processed
+  ansible.builtin.debug:
+    msg: Processing {{ service }}
+
+- name: Template {{ files[inventory_hostname_short][service]['src'] }} to {{ files[inventory_hostname_short][service]['dest'] }}
+  ansible.builtin.template:
+    src: "{{ files[inventory_hostname_short][service]['src'] }}"
+    dest: "{{ files[inventory_hostname_short][service]['dest'] }}"
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - reload wifi
+  when: files[inventory_hostname_short][service]['src'] is regex('.*\.j2')
+
+- name: Copy {{ files[inventory_hostname_short][service]['src'] }} to {{ files[inventory_hostname_short][service]['dest'] }}
+  ansible.builtin.copy:
+    src: "{{ files[inventory_hostname_short][service]['src'] }}"
+    dest: "{{ files[inventory_hostname_short][service]['dest'] }}"
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - reload wifi
+  when: files[inventory_hostname_short][service]['src'] is not regex('.*\.j2')

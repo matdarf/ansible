@@ -1,0 +1,21 @@
+---
+- hosts: all
+
+  tasks:
+
+  - name: List VMs with {{  desired_state }} state
+    community.libvirt.virt:
+      command: list_vms
+      state: "{{ desired_state }}"
+    register: vms
+    when: desired_state is defined
+
+  - name: List all VMs
+    community.libvirt.virt:
+      command: list_vms
+    register: vms
+    when: desired_state is undefined
+
+  - name: Print matching VMs
+    ansible.builtin.debug:
+      var: vms

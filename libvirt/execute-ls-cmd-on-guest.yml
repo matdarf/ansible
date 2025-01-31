@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  tasks:
+
+  - name: Execute ls CMD on node
+    ansible.builtin.command: ls
+    register: ls_output
+
+  - name: Print command output
+    ansible.builtin.debug:
+      var: ls_output
